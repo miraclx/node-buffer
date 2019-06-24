@@ -73,7 +73,7 @@ class Buffer():
     def write(self, val, offset=0, length=None, encoding='utf8'):
         stack = Buffer.__settle(val)
         index = offset
-        total = length or min(len(self), len(stack))
+        total = length or min(len(self), len(stack) + offset)
         while index < total:
             self.__bytearray[index] = stack[index - offset]
             index += 1
