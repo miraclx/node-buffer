@@ -32,6 +32,9 @@ class Buffer():
     def __getitem__(self, index):
         return self.__bytearray[index]
 
+    def __add__(self, other):
+        return Buffer.concat([self, other])
+
     def size(self):
         return len(self) - self.__bytearray.count(0)
 
