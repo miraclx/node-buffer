@@ -16,6 +16,9 @@ __status__ = "Development"
 
 
 class Buffer():
+    def __init__(self, n=0):
+        self.__bytearray = bytearray(n)
+
     def __repr__(self):
         tflow = 35
         return '<Buffer %s%s>' % (' '.join(self.hexList(tflow)), '' if len(self) <= tflow else ' ... %s more bytes' % (len(self) - tflow))
