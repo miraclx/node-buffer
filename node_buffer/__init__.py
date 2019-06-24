@@ -45,6 +45,9 @@ class Buffer():
     def tolist(self):
         return list(self.__bytearray)
 
+    def todict(self):
+        return {"type": "Buffer", "data": self.tolist()}
+
     def hexList(self, n):
         return [hex(v).split('x')[1].zfill(2) for v in self.tolist()[:n]]
 
