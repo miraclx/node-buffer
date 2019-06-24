@@ -45,9 +45,8 @@ class Buffer():
     def hexList(self, n):
         return [hex(v).split('x')[1].zfill(2) for v in self.tolist()[:n]]
 
-    def toString(self, encoding='utf8', start=0, end=None):
-        block = self.__bytearray[start:end]
-        return block.hex() if encoding == "hex" else block.decode(encoding)
+    def slice(self, start=0, end=None):
+        return Buffer.new(self.__bytearray[start:end])
 
     def includes(self, value, offset=0, encoding='utf8'):
         try:
@@ -55,9 +54,14 @@ class Buffer():
         except:
             return False
 
+    def toString(self, encoding='utf8', start=0, end=None):
+        block = self.__bytearray[start:end]
+        return Buffer.__decodeFromBytes(block, encoding)
+
     def indexOf(self, value, offset=0, encoding='utf8'):
         block = self.__bytearray[offset:]
-        return block.index(bytes(value, encoding))
+        return block.index(Buffer.__encodeToBytes(value, encoding))
+
 
     def fill(self, value, offset=0, end=None, encoding=None):
         import math
@@ -100,13 +104,21 @@ class Buffer():
         return buf.write(content, 0, length, encoding)
 
     @classmethod
+    def __encodeToBytes(cls, val, encoding):
+        return bytes.fromhex(val) if encoding == 'hex' else bytes(val, encoding)
+
+    @classmethod
+    def __decodeFromBytes(cls, val, encoding):
+        return val.hex() if encoding == 'hex' else val.decode(encoding)
+
+    @classmethod
     def __settle(cls, val, encoding='utf8'):
         if isinstance(val, cls):
             return val.tolist()
         elif isinstance(val, int):
             return [val]
         elif isinstance(val, str):
-            return bytes.fromhex(val) if encoding == 'hex' else bytes(val, encoding)
+            return cls.__encodeToBytes(val, encoding)
         elif isinstance(val, (list, tuple, bytes, bytearray)):
             return val
         else:
