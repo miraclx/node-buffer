@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="node-buffer",
-    version="0.1.0",
+    version="0.4.0",
     author="Miraculous Owonubi",
     author_email="omiraculous@gmail.com",
     description="A minor rewrite of the NodeJS Buffer Library for efficient memory management",
