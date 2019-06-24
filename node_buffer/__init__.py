@@ -84,11 +84,10 @@ class Buffer():
 
     @classmethod
     def alloc(cls, n, fill=None, encoding='utf8'):
-        res = cls()
-        res.__bytearray = bytearray(n)
+        buf = cls(n)
         if fill:
-            res.fill(fill, encoding=encoding)
-        return res
+            buf.fill(fill, encoding=encoding)
+        return buf
 
     @classmethod
     def new(cls, val, encoding='utf8', length=0):
