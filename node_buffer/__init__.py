@@ -94,6 +94,10 @@ class Buffer():
         return self.fill(0, start, end)
 
     @staticmethod
+    def isBuffer(buf):
+        return isinstance(buf, Buffer)
+
+    @staticmethod
     def concat(bufs, length=None):
         if not isinstance(bufs, (list, tuple, Buffer)):
             raise TypeError(
@@ -149,3 +153,8 @@ class Buffer():
         else:
             er = "Expected value input to be within the following: 'Buffer' or 'int' or 'str' or 'list' or 'bytes' or 'bytearray'"
             raise TypeError(er)
+
+    @staticmethod
+    def __rshift(val, n):
+        return val >> n if val >= 0 else (val+0x100000000) >> n
+
