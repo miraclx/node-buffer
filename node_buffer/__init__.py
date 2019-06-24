@@ -32,6 +32,10 @@ class Buffer():
     def size(self):
         return len(self) - self.__bytearray.count(0)
 
+    @property
+    def length(self):
+        return len(self)
+
     def tolist(self):
         return list(self.__bytearray)
 
