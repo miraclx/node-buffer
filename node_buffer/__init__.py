@@ -112,7 +112,7 @@ class Buffer():
 
     @classmethod
     def __encodeToBytes(cls, val, encoding):
-        return bytes.fromhex(val) if encoding == 'hex' else bytes(val, encoding)
+        return bytes.fromhex(val) if encoding == 'hex' else bytes(*((val, encoding) if type(val) is str else val))
 
     @classmethod
     def __decodeFromBytes(cls, val, encoding):
