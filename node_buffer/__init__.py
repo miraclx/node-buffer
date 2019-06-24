@@ -62,6 +62,10 @@ class Buffer():
         block = self.__bytearray[offset:]
         return block.index(Buffer.__encodeToBytes(value, encoding))
 
+    def lastIndexOf(self, value, offset=0, encoding='utf8'):
+        block = self.__bytearray[offset:]
+        block.reverse()
+        return len(block) - block.index(Buffer.__encodeToBytes(value, encoding)) - 1
 
     def fill(self, value, offset=0, end=None, encoding=None):
         import math
