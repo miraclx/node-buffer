@@ -93,6 +93,24 @@ class Buffer():
     def clear(self, start=0, end=None):
         return self.fill(0, start, end)
 
+    @staticmethod
+    def concat(bufs, length=None):
+        if not isinstance(bufs, (list, tuple, Buffer)):
+            raise TypeError(
+                f"Invalid argument provided to `bufs`. Expected either 'list', 'tuple' or 'Buffer', found '{type(bufs).__name__}'")
+        if not isinstance(length, (int, float)):
+            length = 0
+            for buf in bufs:
+                length += buf.length
+        else:
+            length = Buffer.__rshift(length, 0)
+        buffer = Buffer.alloc(length)
+        pos = 0
+        for buf in bufs:
+            buf.copy(buffer, pos)
+            pos += buf.length
+        return buffer
+
     @classmethod
     def alloc(cls, n, fill=None, encoding='utf8'):
         buf = cls(n)
