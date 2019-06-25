@@ -20,8 +20,12 @@ class Buffer():
         self.__bytearray = bytearray(n)
 
     def __repr__(self):
-        tflow = 35
-        return '<Buffer %s%s>' % (' '.join(self.hexList(tflow)), '' if len(self) <= tflow else ' ... %s more bytes' % (len(self) - tflow))
+        import shutil
+        try:
+            cols = int(shutil.get_terminal_size((100))[0] * 0.2)
+        except:
+            cols = 35
+        return '<Buffer %s%s>' % (' '.join(self.hexList(cols)), '' if len(self) <= cols else ' ... %s more bytes' % (len(self) - cols))
 
     def __str__(self):
         return self.__repr__()
